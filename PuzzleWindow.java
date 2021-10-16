@@ -52,7 +52,46 @@ public class PuzzleWindow extends JFrame {
 	 * Initializes the interface components, buttons and spinners Liz
 	 */
 	private void initialize() {
+		setLayout(new BorderLayout());
 
+		// The WorldPanel shows the visualization and should be central in the window
+		boardPanel = new PuzzlePanel(control.getBoard());
+		add(boardPanel, BorderLayout.CENTER);
+		boardPanel.updatePuzzle();
+
+		// At the bottom we will contruct a panel with some button to control the
+		// simulation
+		JPanel buttons = new JPanel();
+
+		// Spinner to control the pause between animation steps
+		String[] solvers = { "A* solver", "Human solver" };
+		solverType = new JSpinner(new SpinnerListModel(solvers));
+		buttons.add(solverType);
+
+		// Buton to start an animation
+		showSolution = new JButton("Show Solution");
+		showSolution.addActionListener(showSolution());
+		buttons.add(showSolution);
+
+		// Button for the purpose of spawning a random creature
+		nextStep = new JButton("Next Step");
+		nextStep.addActionListener(nextStep());
+		buttons.add(nextStep);
+
+		// Button for the purpose of randomizing the wealth of the cells
+		endResult = new JButton("End Result");
+		endResult.addActionListener(endResult());
+		buttons.add(endResult);
+
+		add(new JLabel("Number of moves made: "), BorderLayout.SOUTH);
+
+		// Adds the control panel to the bottom of the window
+		add(buttons, BorderLayout.EAST);
+
+		// Button for the purpose of randomizing the wealth of the cells
+		newGame = new JButton("New Game");
+		newGame.addActionListener(newGame());
+		add(newGame, BorderLayout.NORTH);
 	}
 
 	/**
