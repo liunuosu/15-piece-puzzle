@@ -64,6 +64,10 @@ public class GameBoard {
 	public final ArrayList<Integer> getBoard(){
 		return this.listLocation;
 	}
+	
+	public void setPuzzle(ArrayList<Integer> puzzle) {
+		listLocation = puzzle;
+	}
 
 	
 	//will change the board given the moves that people make.  Moves must be "left" "right" "up" or "down"
