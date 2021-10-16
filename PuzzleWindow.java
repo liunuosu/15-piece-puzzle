@@ -125,7 +125,10 @@ public class PuzzleWindow extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				control.setSolver("A* solver");
+				control.solver();
+				control.moveTile();
+				boardPanel.updatePuzzle();
 			}
 		};
 	}
