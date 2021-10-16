@@ -55,7 +55,7 @@ public class PuzzleWindow extends JFrame {
 		setLayout(new BorderLayout());
 
 		// The WorldPanel shows the visualization and should be central in the window
-		boardPanel = new PuzzlePanel(control.getBoard());
+		boardPanel = new PuzzlePanel(control);
 		add(boardPanel, BorderLayout.CENTER);
 		boardPanel.updatePuzzle();
 
@@ -64,34 +64,40 @@ public class PuzzleWindow extends JFrame {
 		JPanel buttons = new JPanel();
 
 		// Spinner to control the pause between animation steps
-		String[] solvers = { "A* solver", "Human solver" };
+		String[] solvers = { "A* solver", "H* solver" };
 		solverType = new JSpinner(new SpinnerListModel(solvers));
 		buttons.add(solverType);
 
 		// Buton to start an animation
 		showSolution = new JButton("Show Solution");
 		showSolution.addActionListener(showSolution());
+		showSolution.setBackground(Color.WHITE);
 		buttons.add(showSolution);
 
 		// Button for the purpose of spawning a random creature
 		nextStep = new JButton("Next Step");
 		nextStep.addActionListener(nextStep());
+		nextStep.setBackground(Color.WHITE);
 		buttons.add(nextStep);
 
 		// Button for the purpose of randomizing the wealth of the cells
 		endResult = new JButton("End Result");
 		endResult.addActionListener(endResult());
+		endResult.setBackground(Color.WHITE);
 		buttons.add(endResult);
 
-		add(new JLabel("Number of moves made: "), BorderLayout.SOUTH);
-
+		buttons.add(new JLabel("Number of moves made: "), BorderLayout.EAST);
+		
 		// Adds the control panel to the bottom of the window
-		add(buttons, BorderLayout.EAST);
+		add(buttons, BorderLayout.SOUTH);
+		buttons.setBackground(Color.WHITE);
 
 		// Button for the purpose of randomizing the wealth of the cells
-		newGame = new JButton("New Game");
+		newGame = new JButton("NEW GAME");
 		newGame.addActionListener(newGame());
 		add(newGame, BorderLayout.NORTH);
+		newGame.setBackground(Color.WHITE);
+		newGame.setForeground(new Color(255, 20, 147));	
 	}
 
 	/**
