@@ -340,7 +340,7 @@ public class HumanAlgorithm {
 		for(int i = 1; i < dimension ; i++) {
 			board.move("left"); moves.add("left");	addMove();
 		}
-		board.move("up"); moves.add("up");			addMove();
+		board.move("up"); moves.add("up");	addMove();
 		for(int i = 1; i < dimension; i++) {
 			board.move("right"); moves.add("right");	addMove();
 		}
@@ -352,10 +352,10 @@ public class HumanAlgorithm {
 		board.move("down");		addMove();
 		//If the puzzle is solvable, then if 0 and 15 are in the right index, the other two should be right as well
 		while(board.getPositionOf(0) != 15 || board.getPositionOf(15) != 14) {
-			board.move("left");		addMove();
-			board.move("up");		addMove();
-			board.move("right");	addMove();
-			board.move("down");		addMove();
+			board.move("left");		moves.add("left"); addMove();
+			board.move("up");		moves.add("up");	 addMove();
+			board.move("right");	moves.add("right"); addMove();
+			board.move("down");		moves.add("down"); addMove();
 
 			}
 		}
