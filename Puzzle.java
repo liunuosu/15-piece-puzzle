@@ -3,15 +3,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * This class makes a solvable random puzzle.
+ * @author Kes Visser 524858kv
+ */
+
 public class Puzzle {
 	
 	private ArrayList<Integer> thePuzzle = new ArrayList<Integer>();
-	
-	public static void main(String[] args) {
-		Puzzle myPuzzle = new Puzzle();
-		System.out.println(solvable(myPuzzle.getPuzzle()));
-		System.out.println(myPuzzle.getPuzzle());
-	}
 	
 	/**
 	 * This method is the constructor for the class Puzzle.
