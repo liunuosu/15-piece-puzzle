@@ -20,12 +20,10 @@ public class GameController {
 	 * solver.
 	 * 
 	 * @param inital The game board to perform a simulation with.
-	 * @param solver the solver with which we which to solve the 15-puzzle.
 	 */
-	public GameController(GameBoard inital, String solver) {
+	public GameController(GameBoard inital) {
 		this.game = inital;
 		this.puzzle = inital.getBoard();
-		this.solver = solver;
 		this.numberOfSteps = 0;
 	}
 
