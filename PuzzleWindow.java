@@ -23,11 +23,16 @@ public class PuzzleWindow extends JFrame {
 	// button for starting new game
 	private JButton newGame;
 	// spinner for selecting solver to be used
-	private JSpinner solverType;
+	private JButton solverA;
+	private JButton solverH;
 	// spinner for showing step by step solution
-	private JSpinner showSolution;
+	private JButton showSolution;
 	// spinner for showing number of iterations
-	private JSpinner showIterations;
+	private JButton nextStep;
+	//
+	private JButton endResult;
+	
+	private JLabel moves;
 
 	// If an animation is active it is performed by this Thread
 	private Thread running;
@@ -55,7 +60,7 @@ public class PuzzleWindow extends JFrame {
 		setLayout(new BorderLayout());
 
 		// The WorldPanel shows the visualization and should be central in the window
-		boardPanel = new PuzzlePanel(control);
+		boardPanel = new PuzzlePanel(control.getBoard());
 		add(boardPanel, BorderLayout.CENTER);
 		boardPanel.updatePuzzle();
 
@@ -63,10 +68,17 @@ public class PuzzleWindow extends JFrame {
 		// simulation
 		JPanel buttons = new JPanel();
 
-		// Spinner to control the pause between animation steps
-		String[] solvers = { "A* solver", "H* solver" };
-		solverType = new JSpinner(new SpinnerListModel(solvers));
-		buttons.add(solverType);
+		// Button for the purpose of spawning a random creature
+		solverA = new JButton("Solver A*");
+		solverA.addActionListener(solverA());
+		solverA.setBackground(Color.WHITE);
+		buttons.add(solverA);
+
+		// Button for the purpose of spawning a random creature
+		solverH = new JButton("Human Solver");
+		solverH.addActionListener(solverH());
+		solverH.setBackground(Color.WHITE);
+		buttons.add(solverH);
 
 		// Buton to start an animation
 		showSolution = new JButton("Show Solution");
@@ -88,6 +100,11 @@ public class PuzzleWindow extends JFrame {
 
 		buttons.add(new JLabel("Number of moves made: "), BorderLayout.EAST);
 		
+		
+		moves = new JLabel(String.valueOf(control.numberOfSteps()));
+		moves.setVisible(false);
+		buttons.add(moves,BorderLayout.EAST);
+
 		// Adds the control panel to the bottom of the window
 		add(buttons, BorderLayout.SOUTH);
 		buttons.setBackground(Color.WHITE);
@@ -97,7 +114,43 @@ public class PuzzleWindow extends JFrame {
 		newGame.addActionListener(newGame());
 		add(newGame, BorderLayout.NORTH);
 		newGame.setBackground(Color.WHITE);
-		newGame.setForeground(new Color(255, 20, 147));	
+		newGame.setForeground(new Color(255, 20, 147));
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 * @author Liz
+	 */
+	private ActionListener solverA() {
+		// Create an anonymous inner class
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+					
+				control.setSolver("A-star");
+				control.solver();
+			}
+		};
+	}
+
+	/**
+	 * 
+	 * @return
+	 * @author Liz
+	 */
+	private ActionListener solverH() {
+		// Create an anonymous inner class
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				control.setSolver("Human");
+				control.solver();
+
+			}
+		};
 	}
 
 	/**
@@ -110,7 +163,33 @@ public class PuzzleWindow extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+			// If no Thread is active, start an animation
+				if (running == null)
+				{
+					
+					showSolution.setText("Show Solution");
+					running = new AnimateThread();
+					// Start the animation thread
+					running.start();
+					// disable all other buttons
+					solverA.setEnabled(false);
+					solverH.setEnabled(false);
+					nextStep.setEnabled(false);
+					endResult.setEnabled(false);
+				}
+				// If a thread is active, disable the animation
+				else
+				{
+					// set the instance variable to null to indicate the thread should stop
+					running = null;
+					// Set all buttons back to normal
+					showSolution.setText("Show Solution");
+					solverA.setEnabled(true);
+					solverH.setEnabled(true);
+					nextStep.setEnabled(true);
+					endResult.setEnabled(true);
 
+				}
 			}
 		};
 	}
@@ -125,9 +204,8 @@ public class PuzzleWindow extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				control.setSolver("A* solver");
-				control.solver();
 				control.moveTile();
+				boardPanel.setPuzzle(control.getBoard().getBoard());
 				boardPanel.updatePuzzle();
 			}
 		};
@@ -143,7 +221,9 @@ public class PuzzleWindow extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				
+				moves.setVisible(true);
+				boardPanel.updatePuzzle();
 			}
 		};
 	}
