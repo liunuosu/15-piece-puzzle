@@ -253,9 +253,8 @@ public class PuzzleWindow extends JFrame {
 	}
 
 	/**
-	 * 
-	 * @return
-	 * @author Kes
+	 * Method for creating a new game. It will make a new game and update that in the panel.
+	 * @return an ActionListener that detects user's clicks
 	 */
 	private ActionListener newGame() {
 
@@ -263,13 +262,15 @@ public class PuzzleWindow extends JFrame {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// comment
+				// makes a new game in control
 				control.createNewGame();
+				//sets the puzzle that we see in the pannel to this new game
 				boardPanel.setPuzzle(control.getBoard());
+				//resets the number of moves back to 0 since we have an unsolved puzzle
 				numberOfMoves = 0;
 				moves.setText(String.valueOf(numberOfMoves));
 				moves.setVisible(false);
-				// comment
+				// prints new puzzle
 				boardPanel.updatePuzzle();
 			}
 		};
