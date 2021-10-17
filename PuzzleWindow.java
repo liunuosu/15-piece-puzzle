@@ -139,7 +139,7 @@ public class PuzzleWindow extends JFrame {
 					
 				control.setSolver("A-star");
 				control.solver();
-				numberOfMoves = control.numberOfSteps();
+				numberOfMoves = control.numberOfTotalSteps();
 			}
 		};
 	}
@@ -157,7 +157,7 @@ public class PuzzleWindow extends JFrame {
 				
 				control.setSolver("Human");
 				control.solver();
-				numberOfMoves = control.numberOfSteps();
+				numberOfMoves = control.numberOfTotalSteps();
 
 			}
 		};
