@@ -32,6 +32,15 @@ public class GameController {
 	public GameBoard getBoard() {
 		return game;
 	}
+	/**
+	 * Gets the solved state of a puzzle. That is in ordered form (1-15)
+	 * 
+	 * @return a GameBoard with the solved configuration of the puzzle
+	 */
+	public GameBoard getSolvedBoard() {
+		GameBoard solved = new GameBoard(moves.get(numberOfTotalSteps() - 1));
+		return solved;
+	}
 	
 	/**
 	 * Creates a new 15-puzzle and change the puzzle in game board to this new puzzle. It also resets the numberOfSteps to 0.
