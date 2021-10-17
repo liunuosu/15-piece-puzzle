@@ -58,6 +58,9 @@ public class GameController {
 	public void setSolver(String solver) {
 		this.solver = solver;
 	}
+	public int numberOfSteps() {
+		return moves.size();
+	}
 	
 	//Make a solver class and return moves
 	public ArrayList<ArrayList<Integer>> solver(){
