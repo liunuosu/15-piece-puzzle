@@ -127,7 +127,7 @@ public class PuzzleWindow extends JFrame {
 	/**
 	 * Method for using A* algorithm to solve the puzzle
 	 * 
-	 * @return
+	 * @return an ActionListener that detects user's clicks
 	 */
 	private ActionListener solverA() {
 		// Create an anonymous inner class
